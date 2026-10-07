@@ -1,0 +1,36 @@
+{% extends "admin/index.html" %}
+{% load admin_extras %}
+
+{% block content %}
+<div class="dashboard-stats">
+  <a class="stat-tile stat-tile--gold" href="{% url 'admin:website_contactmessage_changelist' %}?is_read__exact=0">
+    <span class="material-icons-round">mail</span>
+    <div class="stat-tile__body">
+      <strong>{% unread_message_count %}</strong>
+      <span>Unread Messages</span>
+    </div>
+  </a>
+  <a class="stat-tile stat-tile--navy" href="{% url 'admin:website_event_changelist' %}">
+    <span class="material-icons-round">event</span>
+    <div class="stat-tile__body">
+      <strong>{% upcoming_event_count %}</strong>
+      <span>Upcoming Events</span>
+    </div>
+  </a>
+  <a class="stat-tile stat-tile--forest" href="{% url 'admin:website_blogpost_changelist' %}?is_published__exact=1">
+    <span class="material-icons-round">article</span>
+    <div class="stat-tile__body">
+      <strong>{% published_post_count %}</strong>
+      <span>Published Posts</span>
+    </div>
+  </a>
+  <a class="stat-tile stat-tile--outline" href="/" target="_blank">
+    <span class="material-icons-round">public</span>
+    <div class="stat-tile__body">
+      <strong>View Site</strong>
+      <span>Open the live campaign site</span>
+    </div>
+  </a>
+</div>
+{{ block.super }}
+{% endblock %}

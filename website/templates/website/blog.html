@@ -1,0 +1,133 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %}News &amp; Updates — Nii Kpakpo{% endblock %}
+
+{% block content %}
+
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow page-hero__eyebrow">Campaign News</span>
+    <h1>News &amp; Updates</h1>
+    <p>Stay informed on the issues, events, and announcements from the campaign.</p>
+  </div>
+</div>
+
+<section class="section section--cream">
+  <div class="container">
+
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert--success">
+        <span class="material-icons-round">check_circle</span>{{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    <!-- ── Category Filter Bar ─────────────────────────────── -->
+    <div class="category-filters" data-reveal>
+      <button class="filter-btn active" data-category="all">All Posts</button>
+      {% for value, label in categories %}
+      <button class="filter-btn" data-category="{{ value }}">{{ label }}</button>
+      {% endfor %}
+    </div>
+
+    <div class="blog-layout">
+      <div class="blog-posts">
+
+        {% if featured %}
+        <article class="post-card post-card--featured" data-reveal data-category="{{ featured.category }}">
+          <div class="post-card__image">
+            {% if featured.image %}
+              <img src="{{ featured.image.url }}" alt="{{ featured.title }}">
+            {% else %}
+              <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&q=80" alt="{{ featured.title }}">
+            {% endif %}
+            <span class="post-card__category">{{ featured.category }}</span>
+          </div>
+          <div class="post-card__body">
+            <p class="post-card__meta">{{ featured.published_date|date:"F j, Y" }} &middot; Featured</p>
+            <h2>{{ featured.title }}</h2>
+            <p>{{ featured.excerpt }}</p>
+            <a href="{% url 'blog_detail' featured.pk %}" class="read-more">Read Full Story <span class="material-icons-round">arrow_forward</span></a>
+          </div>
+        </article>
+        {% endif %}
+
+        {% for post in posts %}
+        <article class="post-card" data-reveal data-category="{{ post.category }}">
+          <div class="post-card__image post-card__img-std">
+            {% if post.image %}
+              <img src="{{ post.image.url }}" alt="{{ post.title }}">
+            {% else %}
+              <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&q=80" alt="{{ post.title }}">
+            {% endif %}
+            <span class="post-card__category">{{ post.category }}</span>
+          </div>
+          <div class="post-card__body">
+            <p class="post-card__meta">{{ post.published_date|date:"F j, Y" }}</p>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.excerpt }}</p>
+            <a href="{% url 'blog_detail' post.pk %}" class="read-more">Read More <span class="material-icons-round">arrow_forward</span></a>
+          </div>
+        </article>
+        {% empty %}
+          {% if not featured %}
+          <p style="text-align:center;color:var(--text-muted);padding:var(--sp-xl) 0">No posts published yet. Check back soon!</p>
+          {% endif %}
+        {% endfor %}
+
+        <!-- No-results message (shown by JS when filter yields nothing) -->
+        <p id="no-results" style="display:none;text-align:center;color:var(--text-muted);padding:var(--sp-xl) 0">
+          No posts in this category yet.
+        </p>
+
+      </div><!-- /blog-posts -->
+
+      <aside class="sidebar">
+
+        <!-- Categories widget (mirrors the filter bar) -->
+        <div class="widget" data-reveal>
+          <h3>Categories</h3>
+          <ul class="widget-list" id="sidebar-categories">
+            <li class="sidebar-filter-item active-cat" data-category="all">
+              <a href="#">All Posts</a>
+              <span class="material-icons-round" style="font-size:.9rem;color:var(--gold)">arrow_forward_ios</span>
+            </li>
+            {% for value, label in categories %}
+            <li class="sidebar-filter-item" data-category="{{ value }}">
+              <a href="#">{{ label }}</a>
+              <span class="material-icons-round" style="font-size:.9rem;color:var(--text-muted)">arrow_forward_ios</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="widget" id="newsletter" data-reveal data-reveal-delay="2">
+          <h3>Stay Informed</h3>
+          <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1.25rem;font-weight:500">Get the latest updates delivered directly to your inbox.</p>
+          <form class="newsletter-form" novalidate>
+            {% csrf_token %}
+            <input type="email" placeholder="your@email.com" required>
+            <button type="submit" class="btn btn-navy" style="width:100%;justify-content:center">
+              <span class="material-icons-round">send</span> Subscribe
+            </button>
+          </form>
+        </div>
+
+        <!-- Get Involved -->
+        <div class="widget" data-reveal data-reveal-delay="3">
+          <h3>Get Involved</h3>
+          <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1.25rem;font-weight:500">Your voice matters. Join the movement today.</p>
+          <a href="{% url 'contact' %}" class="btn btn-gold" style="width:100%;justify-content:center">
+            <span class="material-icons-round">volunteer_activism</span> Volunteer Now
+          </a>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

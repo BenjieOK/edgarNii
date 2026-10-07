@@ -1,0 +1,81 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} — Nii Kpakpo{% endblock %}
+
+{% block content %}
+
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow page-hero__eyebrow">{{ post.category }}</span>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.published_date|date:"F j, Y" }}</p>
+  </div>
+</div>
+
+<section class="section section--cream">
+  <div class="container">
+    <div class="blog-layout">
+      <article class="post-detail" data-reveal>
+        <a href="{% url 'blog' %}" class="btn btn-outline-navy post-detail__back">
+          <span class="material-icons-round">arrow_back</span> Back to News
+        </a>
+
+        <div class="post-detail__hero">
+          {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+          {% else %}
+            <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=1200&q=80" alt="{{ post.title }}">
+          {% endif %}
+        </div>
+
+        <div class="post-detail__body">
+          {{ post.content|default:post.excerpt|linebreaks }}
+        </div>
+
+        <a href="{% url 'blog' %}" class="btn btn-outline-navy post-detail__back post-detail__back--bottom">
+          <span class="material-icons-round">arrow_back</span> Back to News
+        </a>
+      </article>
+
+      <aside class="sidebar">
+
+        {% if related %}
+        <div class="widget" data-reveal>
+          <h3>Related Posts</h3>
+          <ul class="widget-list">
+            {% for item in related %}
+            <li><a href="{% url 'blog_detail' item.pk %}">{{ item.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <!-- Newsletter -->
+        <div class="widget" id="newsletter" data-reveal data-reveal-delay="1">
+          <h3>Stay Informed</h3>
+          <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1.25rem;font-weight:500">Get the latest updates delivered directly to your inbox.</p>
+          <form class="newsletter-form" novalidate>
+            {% csrf_token %}
+            <input type="email" placeholder="your@email.com" required>
+            <button type="submit" class="btn btn-navy" style="width:100%;justify-content:center">
+              <span class="material-icons-round">send</span> Subscribe
+            </button>
+          </form>
+        </div>
+
+        <!-- Get Involved -->
+        <div class="widget" data-reveal data-reveal-delay="2">
+          <h3>Get Involved</h3>
+          <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1.25rem;font-weight:500">Your voice matters. Join the movement today.</p>
+          <a href="{% url 'contact' %}" class="btn btn-gold" style="width:100%;justify-content:center">
+            <span class="material-icons-round">volunteer_activism</span> Volunteer Now
+          </a>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

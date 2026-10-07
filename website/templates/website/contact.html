@@ -1,0 +1,116 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %}Contact — Nii Kpakpo{% endblock %}
+
+{% block content %}
+
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow page-hero__eyebrow">Reach Out</span>
+    <h1>Get In Touch</h1>
+    <p>We'd love to hear from you. Send a message or visit our office.</p>
+  </div>
+</div>
+
+<section class="section section--cream">
+  <div class="container">
+
+    {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert--success">
+        <span class="material-icons-round">check_circle</span>{{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    <div class="contact-grid">
+
+      <!-- Form -->
+      <div data-reveal>
+        <div class="section-header" style="margin-bottom:var(--sp-lg)">
+          <span class="eyebrow">Drop Us a Line</span>
+          <h2>Send a Message</h2>
+          <div class="section-header__line"></div>
+        </div>
+        <form class="contact-form" method="post" novalidate>
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <p class="form-error">
+              <span class="material-icons-round">error</span>
+              {{ field.errors|join:", " }}
+            </p>
+            {% endif %}
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-navy" style="margin-top:.5rem;padding:.9rem 2.5rem">
+            <span class="material-icons-round">send</span> Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- Info -->
+      <div class="contact-info" data-reveal data-reveal-delay="2">
+        <div class="info-card">
+          <h3>Campaign Office</h3>
+          <div class="info-item">
+            <div class="info-item__icon">
+              <span class="material-icons-round">location_on</span>
+            </div>
+            <span>{{ contact_info.address }}</span>
+          </div>
+          <div class="info-item">
+            <div class="info-item__icon">
+              <span class="material-icons-round">phone</span>
+            </div>
+            <span>{{ contact_info.phone }}</span>
+          </div>
+          <div class="info-item">
+            <div class="info-item__icon">
+              <span class="material-icons-round">email</span>
+            </div>
+            <span>{{ contact_info.email }}</span>
+          </div>
+        </div>
+
+        {% if events %}
+        <div class="info-card">
+          <h3>Upcoming Events</h3>
+          <ul class="events-list">
+            {% for event in events %}
+            <li>
+              <strong>{{ event.name }}</strong>
+              <span>
+                <span class="material-icons-round" style="color:var(--gold)">calendar_month</span>
+                {{ event.date_time|date:"F j, Y" }} &middot; {{ event.date_time|time:"g:i A" }}
+              </span>
+              <span style="display:block;margin-top:.15rem">
+                <span class="material-icons-round" style="color:var(--gold)">location_on</span>
+                {{ event.location }}
+              </span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+
+        <div class="info-card" style="background:var(--navy);border:none">
+          <h3 style="color:var(--white);border-color:rgba(255,255,255,.1)">Get Involved</h3>
+          <p style="color:rgba(255,255,255,.65);font-size:.88rem;font-weight:500;margin-bottom:1.25rem">
+            Volunteer your time, spread the word, or make a contribution. Every action counts.
+          </p>
+          <a href="{{ site.donate_url }}" class="btn btn-gold" style="width:100%;justify-content:center">
+            <span class="material-icons-round">favorite</span> Donate to the Campaign
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

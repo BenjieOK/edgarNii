@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Jane Doe for Office</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Teko:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="page-main">
+        <div class="container">
+            <h1 class="page-title">Portfolio of Work</h1>
+            <p class="page-subtitle">A detailed record of academic, project, and community engagement.</p>
+
+            <div class="portfolio-container">
+                <div class="tab-navigation">
+                    <button class="tab-link active" onclick="openTab(event, 'academic')"><i class="fas fa-graduation-cap"></i> Academic Achievements</button>
+                    <button class="tab-link" onclick="openTab(event, 'projects')"><i class="fas fa-briefcase"></i> Signature Projects</button>
+                    <button class="tab-link" onclick="openTab(event, 'constituency')"><i class="fas fa-users"></i> Constituency Work</button>
+                </div>
+
+                <div id="academic" class="tab-content active">
+                    <h2>Education & Research</h2>
+                    <ul class="timeline">
+                        <li>
+                            <div class="timeline-badge"><i class="fas fa-university"></i></div>
+                            <div class="timeline-panel">
+                                <h4>Master of Public Policy (MPP)</h4>
+                                <p><strong>Harvard Kennedy School</strong> | 2008</p>
+                                <p class="text-muted">Thesis: "Urban Renewal Policies and Their Impact on Low-Income Communities." Awarded distinction for research.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="timeline-badge"><i class="fas fa-book-open"></i></div>
+                            <div class="timeline-panel">
+                                <h4>Published Research Paper</h4>
+                                <p><strong>Journal of Public Affairs</strong> | 2010</p>
+                                <p class="text-muted">Co-authored a study on "Sustainable Economic Models for Mid-Sized Cities."</p>
+                            </div>
+                        </li>
+                         <li>
+                            <div class="timeline-badge"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="timeline-panel">
+                                <h4>Bachelor of Arts, Political Science</h4>
+                                <p><strong>University of Accra</strong> | 2006</p>
+                                <p class="text-muted">Graduated Summa Cum Laude. President of the Debate Society.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="projects" class="tab-content">
+                    <h2>Signature Projects</h2>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <img src="https://via.placeholder.com/600x400" alt="Downtown revitalization project">
+                            <div class="project-content">
+                                <span class="project-status completed">Completed</span>
+                                <h3>Downtown Revitalization Act</h3>
+                                <p>Secured funding to restore historic downtown storefronts, improve public parks, and support local businesses, leading to a 15% increase in local commerce.</p>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <img src="https://via.placeholder.com/600x400" alt="Tech in schools program">
+                            <div class="project-content">
+                                <span class="project-status completed">Completed</span>
+                                <h3>Tech in Schools Program</h3>
+                                <p>A successful program that equipped over 5,000 students with laptops and provided enhanced technology training for educators across the district.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="constituency" class="tab-content">
+                    <h2>In Service to the Community</h2>
+                    <div class="constituency-work">
+                        <h4>Weekly Town Halls</h4>
+                        <p>Established and maintained a commitment to hosting weekly open-door town halls. Since 2018, over 300 sessions have been held, addressing thousands of constituent concerns directly.</p>
+                        <div class="testimonial">
+                            <blockquote>
+                                "Jane's weekly meetings are a game-changer. I raised an issue about road safety in our neighborhood, and within a month, speed bumps were installed. She listens and she acts."
+                            </blockquote>
+                            <cite>- Adoley Mensah, Madina Resident</cite>
+                        </div>
+                    </div>
+                    <div class="constituency-work">
+                        <h4>Youth Mentorship Program</h4>
+                        <p>Launched a mentorship program connecting young adults with local business leaders in Accra. The program has successfully placed over 150 mentees in internships and apprenticeships.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="/components/components.js"></script>
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+        // Set the default tab to be visible on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector(".tab-link.active").click();
+        });
+    </script>
+</body>
+</html>

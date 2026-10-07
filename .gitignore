@@ -1,0 +1,25 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+db.sqlite3
+media/
+staticfiles/
+.DS_Store
+
+# AI agents / coding assistants (local state, not shared)
+.claude/
+.qodo/
+.cursor/
+.windsurf/
+.continue/
+.codeium/
+.cody/
+.cline/
+.clinerules/
+.roo/
+.amazonq/
+.junie/
+.zed/
+.aider*

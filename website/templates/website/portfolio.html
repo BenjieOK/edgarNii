@@ -1,0 +1,122 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %}Portfolio — Nii Kpakpo{% endblock %}
+
+{% block content %}
+
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow page-hero__eyebrow">Track Record</span>
+    <h1>Portfolio of Work</h1>
+    <p>A detailed record of academic excellence, signature projects, and community service.</p>
+  </div>
+</div>
+
+<section class="section section--cream">
+  <div class="container">
+
+    <div class="tab-nav" role="tablist" data-reveal>
+      <button class="tab-btn active" role="tab" onclick="openTab(event,'academic')">
+        <span class="material-icons-round">school</span> Academic
+      </button>
+      <button class="tab-btn" role="tab" onclick="openTab(event,'projects')">
+        <span class="material-icons-round">work</span> Signature Projects
+      </button>
+      <button class="tab-btn" role="tab" onclick="openTab(event,'constituency')">
+        <span class="material-icons-round">groups</span> Constituency Work
+      </button>
+    </div>
+
+    <!-- Academic -->
+    <div id="academic" class="tab-panel active">
+      <div class="section-header" style="margin-bottom:var(--sp-lg)" data-reveal>
+        <span class="eyebrow">Education &amp; Research</span>
+        <h2>Academic Achievements</h2>
+        <div class="section-header__line"></div>
+      </div>
+      <div class="timeline" data-reveal>
+        {% for item in academics %}
+        <div class="timeline__item">
+          <div class="timeline__dot">
+            <span class="material-icons-round">{{ item.icon_class }}</span>
+          </div>
+          <div class="timeline__body">
+            <h4>{{ item.degree_title }}</h4>
+            <p class="timeline__meta">{{ item.institution }} &middot; {{ item.year }}</p>
+            {% if item.description %}<p>{{ item.description }}</p>{% endif %}
+          </div>
+        </div>
+        {% empty %}
+        <p style="color:var(--text-muted)">No academic achievements added yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Signature Projects -->
+    <div id="projects" class="tab-panel">
+      <div class="section-header" style="margin-bottom:var(--sp-lg)" data-reveal>
+        <span class="eyebrow">Track Record</span>
+        <h2>Signature Projects</h2>
+        <div class="section-header__line"></div>
+      </div>
+      <div class="projects-grid" data-reveal>
+        {% for project in sig_projects %}
+        <div class="project-card">
+          <div class="project-card__image">
+            {% if project.image %}
+              <img src="{{ project.image.url }}" alt="{{ project.title }}">
+            {% else %}
+              <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="{{ project.title }}">
+            {% endif %}
+          </div>
+          <div class="project-card__body">
+            <span class="project-status {{ project.status }}">{{ project.get_status_display }}</span>
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.description }}</p>
+          </div>
+        </div>
+        {% empty %}
+        <p style="color:var(--text-muted);grid-column:1/-1">No signature projects added yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Constituency -->
+    <div id="constituency" class="tab-panel">
+      <div class="section-header" style="margin-bottom:var(--sp-lg)" data-reveal>
+        <span class="eyebrow">In Service</span>
+        <h2>Constituency Work</h2>
+        <div class="section-header__line"></div>
+      </div>
+      {% for work in constituency %}
+      <div class="constituency-card" data-reveal>
+        <h4>{{ work.title }}</h4>
+        <p>{{ work.description }}</p>
+        {% if work.testimonial_quote %}
+        <div class="testimonial">
+          <blockquote>"{{ work.testimonial_quote }}"</blockquote>
+          {% if work.testimonial_author %}<cite>— {{ work.testimonial_author }}</cite>{% endif %}
+        </div>
+        {% endif %}
+      </div>
+      {% empty %}
+      <p style="color:var(--text-muted)">No constituency work added yet.</p>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function openTab(evt, tabName) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabName).classList.add('active');
+  evt.currentTarget.classList.add('active');
+}
+</script>
+{% endblock %}

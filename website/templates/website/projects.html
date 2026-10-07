@@ -1,0 +1,88 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %}Projects &amp; Initiatives — Nii Kpakpo{% endblock %}
+
+{% block content %}
+
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow page-hero__eyebrow">Impact &amp; Results</span>
+    <h1>Projects &amp; Initiatives</h1>
+    <p>A transparent record of action and measurable results for our community.</p>
+  </div>
+</div>
+
+<section class="section section--cream">
+  <div class="container">
+    <div class="projects-grid">
+      {% for project in projects %}
+      <div class="project-card" data-reveal data-reveal-delay="{{ forloop.counter }}">
+        <div class="project-card__image">
+          {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+          {% else %}
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="{{ project.title }}">
+          {% endif %}
+        </div>
+        <div class="project-card__body">
+          <span class="project-status {{ project.status }}">{{ project.get_status_display }}</span>
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.description }}</p>
+          {% if project.detail_content %}
+          <a href="#" class="read-more" onclick="openModal('modal-{{ project.pk }}'); return false;">
+            Learn More <span class="material-icons-round">arrow_forward</span>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:var(--sp-xl) 0">No projects added yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Modals -->
+{% for project in projects %}{% if project.detail_content %}
+<div id="modal-{{ project.pk }}" class="modal">
+  <div class="modal__box">
+    <div class="modal__header">
+      <h3>{{ project.title }}</h3>
+      <button class="modal__close" onclick="closeModal('modal-{{ project.pk }}')" aria-label="Close">
+        <span class="material-icons-round">close</span>
+      </button>
+    </div>
+    <div class="modal__body">
+      <span class="project-status {{ project.status }}" style="margin-bottom:1rem;display:inline-block">{{ project.get_status_display }}</span>
+      {{ project.detail_content|linebreaks }}
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn-navy" onclick="closeModal('modal-{{ project.pk }}')">Close</button>
+    </div>
+  </div>
+</div>
+{% endif %}{% endfor %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function openModal(id) {
+  const m = document.getElementById(id);
+  if (m) { m.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+}
+function closeModal(id) {
+  const m = document.getElementById(id);
+  if (m) { m.classList.remove('is-open'); document.body.style.overflow = ''; }
+}
+document.querySelectorAll('.modal').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal.is-open').forEach(m => closeModal(m.id));
+  }
+});
+</script>
+{% endblock %}

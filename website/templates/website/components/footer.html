@@ -1,0 +1,56 @@
+{% load static %}
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+
+      <div class="footer__brand">
+        <span class="footer__logo">{{ site.logo_text }}</span>
+        <p>Committed to progress, unity, and action for every citizen of our community.</p>
+        <div class="footer__socials">
+          {% if site.twitter_url %}
+          <a href="{{ site.twitter_url }}" class="footer__social-link" target="_blank" rel="noopener" aria-label="Twitter">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+          {% endif %}
+          {% if site.facebook_url %}
+          <a href="{{ site.facebook_url }}" class="footer__social-link" target="_blank" rel="noopener" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          {% endif %}
+          {% if site.instagram_url %}
+          <a href="{{ site.instagram_url }}" class="footer__social-link" target="_blank" rel="noopener" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'portfolio' %}">Portfolio</a></li>
+          <li><a href="{% url 'projects' %}">Projects</a></li>
+          <li><a href="{% url 'blog' %}">News &amp; Blog</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="{% url 'contact' %}">Volunteer</a></li>
+          <li><a href="{{ site.donate_url }}">Donate</a></li>
+          <li><a href="{% url 'blog' %}#newsletter">Newsletter</a></li>
+          <li><a href="{% url 'contact' %}">Events</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p>{{ site.footer_legal_text }}</p>
+      <p>{{ site.footer_copyright_text }}</p>
+    </div>
+  </div>
+</footer>

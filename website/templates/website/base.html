@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Nii Kpakpo — For a Better Tomorrow{% endblock %}</title>
+
+  <!-- Google Fonts: Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+  <!-- Material Icons Round -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+  <!-- Font Awesome (brand icons only — Twitter, Facebook, Instagram) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="{% static 'website/css/style.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <!-- ── Navigation (component) ───────────────────────────────── -->
+  {% include "website/components/nav.html" %}
+
+  <!-- ── Page Content ──────────────────────────────────────────── -->
+  {% block content %}{% endblock %}
+
+  <!-- ── Footer (component) ───────────────────────────────────── -->
+  {% include "website/components/footer.html" %}
+
+  <script src="{% static 'website/js/script.js' %}"></script>
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>
