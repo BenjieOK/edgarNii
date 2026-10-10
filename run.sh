@@ -1,6 +1,11 @@
 #!/bin/bash
-# Start the Nii Kpakpo campaign Django dev server
-echo "Starting dev server at http://127.0.0.1:8000"
-echo "Admin panel:  http://127.0.0.1:8000/admin/"
-echo "Login:        admin / admin123"
-venv/bin/python manage.py runserver
+set -e
+echo "Applying database migrations..."
+python manage.py makemigrations
+python manage.py migrate
+
+echo "Collecting static files..."
+python manage.py collectstatic --noinput
+
+echo "Starting Django with Gunicorn..."
+gunicorn config.wsgi:application --bind 0.0.0.0:${PORT:-8000} --workers 3 --timeout 120 &

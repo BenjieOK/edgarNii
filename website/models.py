@@ -271,7 +271,7 @@ class AcademicAchievement(models.Model):
     )
     degree_title = models.CharField(max_length=200)
     institution = models.CharField(max_length=200)
-    year = models.CharField(max_length=10)
+    year = models.CharField(max_length=25)
     description = models.TextField(blank=True)
     order = models.PositiveIntegerField(default=0)
 
