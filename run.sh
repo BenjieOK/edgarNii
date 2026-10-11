@@ -8,4 +8,4 @@ echo "Collecting static files..."
 #python manage.py collectstatic --noinput
 
 echo "Starting Django with Gunicorn..."
-gunicorn config.wsgi:application &
+gunicorn config.wsgi:application
