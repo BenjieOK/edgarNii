@@ -106,3 +106,6 @@ def contact(request):
     else:
         ctx["form"] = ContactForm()
     return render(request, "website/contact.html", ctx)
+
+def request_accesss(request):
+    return render(request, "website/request_access.html", {"ip": request.GET.get("ip","")}, status=403)

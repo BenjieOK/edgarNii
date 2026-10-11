@@ -1,0 +1,39 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block title %}Contact — Nii Kpakpo{% endblock %}
+
+{% block content %}
+
+<div class="page-hero">
+  <div class="container">
+    <span class="eyebrow page-hero__eyebrow">Admin Access</span>
+        <h1>Admin access restricted</h1>
+    <p>This area is available only from approved IP addresses.</p>
+    <p>If you need access, contact the site administrator.</p>
+    {% if ip %}<p>Your IP address: <strong>{{ ip }}</strong></p>{% endif %}
+    <p><a href="/">Return to homepage</a></p>  </div>
+</div>
+
+<!--<section class="section section&#45;&#45;cream">-->
+<!--  <div class="container">-->
+
+<!--    {% if messages %}-->
+<!--      {% for message in messages %}-->
+<!--      <div class="alert alert&#45;&#45;success">-->
+<!--        <span class="material-icons-round">check_circle</span>{{ message }}-->
+<!--      </div>-->
+<!--      {% endfor %}-->
+<!--    {% endif %}-->
+
+<!--    <div class="contact-grid">-->
+<!--    <h1>Admin access restricted</h1>-->
+<!--    <p>This area is available only from approved IP addresses.</p>-->
+<!--    <p>If you need access, contact the site administrator.</p>-->
+<!--    {% if ip %}<p>Your IP address: <strong>{{ ip }}</strong></p>{% endif %}-->
+<!--    <p><a href="/">Return to homepage</a></p>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+
+{% endblock %}
